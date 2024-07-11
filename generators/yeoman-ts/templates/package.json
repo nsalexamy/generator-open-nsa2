@@ -25,7 +25,7 @@
   "scripts": {
     "build": "npm run compile && npm run copy-files",
     "compile": "tsc",
-    "copy-files": "cpy \"jdl/*.json\" \"dist/jdl\" && cpy \"generators/**\"  dist/generators",
-    "copy-types": "cpy \"generators/**/*.d.(|c|m)ts\" dist/types/generators && cpy \"jdl/**/*.d.(|c|m)ts\" dist/types/jdl"
+    "copy-files": "cpy \"generators/**\"  dist/generators",
+    "copy-types": "cpy \"generators/**/*.d.(|c|m)ts\" dist/types/generators"
   }
 }
