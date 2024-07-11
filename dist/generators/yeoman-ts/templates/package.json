@@ -1,0 +1,31 @@
+{
+  "name": "<%= nsa2_generatorName %>",
+  "version": "0.0.1",
+  "description": "NSA2 generator",
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    "./generators/*/generators/*": {
+      "types": "./dist/types/generators/*/generators/*/types-export.d.ts",
+      "default": "./dist/generators/*/generators/*/index.js"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.10",
+    "cpy-cli": "^5.0.0",
+    "nodemon": "^3.1.0",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "yeoman-generator": "^7.1.1",
+    "lodash": "^4.17.21"
+  },
+  "scripts": {
+    "build": "npm run compile && npm run copy-files",
+    "compile": "tsc",
+    "copy-files": "cpy \"jdl/*.json\" \"dist/jdl\" && cpy \"generators/**\"  dist/generators",
+    "copy-types": "cpy \"generators/**/*.d.(|c|m)ts\" dist/types/generators && cpy \"jdl/**/*.d.(|c|m)ts\" dist/types/jdl"
+  }
+}

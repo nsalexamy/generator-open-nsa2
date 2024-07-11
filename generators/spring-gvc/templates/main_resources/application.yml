@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: <%= project.name %>
+  main:
+    banner-mode: off
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,loggers
+  endpoint:
+    loggers:
+      enabled: true

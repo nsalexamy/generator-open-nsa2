@@ -1,0 +1,13 @@
+= Generator Open NSA2
+
+`Generator Open NSA2` is an Yeoman based generator for creating a new project with the following features:
+
+[source,shellscript]
+----
+$ cd ~/Dev/tmp
+$ mkdir generator-myprj && cd $_
+
+$ yo open-nsa2:yeoman-ts
+$ npm run build
+$ npm link
+----
