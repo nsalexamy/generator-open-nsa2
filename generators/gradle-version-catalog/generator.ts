@@ -1,5 +1,4 @@
 import YeomanGenerator, { type BaseOptions } from 'yeoman-generator';
-import {PromptQuestion, PromptQuestions} from "@yeoman/types";
 
 
 
@@ -53,33 +52,33 @@ export default class GradleVersionCatalogGenerator extends YeomanGenerator {
         // });
 
         const answers = await this.prompt([
-                {
-                    type: "input",
-                    name: 'project_group',
-                    message: 'Group name:',
-                    default: this.config.get('project_group') || 'com.example'
-                },
-                {
-                    type: "input",
-                    name: 'project_name',
-                    message: 'project name:',
-                    default: this.config.get('project_name') || currentDirectoryName
-                },
-                {
-                    type: "input",
-                    name: 'project_version',
-                    message: 'Version:',
-                    default: this.config.get('project_version') || '0.0.1-SNAPSHOT'
-                }
+            {
+                type: "input",
+                name: 'project_group',
+                message: 'Group name:',
+                default: this.config.get('project_group') || 'com.example'
+            },
+            {
+                type: "input",
+                name: 'project_name',
+                message: 'project name:',
+                default: this.config.get('project_name') || currentDirectoryName
+            },
+            {
+                type: "input",
+                name: 'project_version',
+                message: 'Version:',
+                default: this.config.get('project_version') || '0.0.1-SNAPSHOT'
+            }
         ]);
 
         this.config.set(answers);
         this.config.save();
 
         this._project = {
-                    group: answers.project_group,
-                    name: answers.project_name,
-                    version: answers.project_version
+            group: answers.project_group,
+            name: answers.project_name,
+            version: answers.project_version
         };
     }
     generateFiles() {
@@ -103,13 +102,13 @@ export default class GradleVersionCatalogGenerator extends YeomanGenerator {
 
         files.forEach(file => {
 
-           this.fs.copyTpl(
-               this.templatePath(file),
-               this.destinationPath(`./${file}`),
-               {
+            this.fs.copyTpl(
+                this.templatePath(file),
+                this.destinationPath(`./${file}`),
+                {
                     project: this._project,
-               }
-           );
+                }
+            );
         });
 
 

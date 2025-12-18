@@ -1,0 +1,29 @@
+name: Conditional Branch Deletion
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  delete_branch:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Conditionally delete merged branch
+        env:
+          # GitHub Personal Access Token for API access of the Owner.
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          BRANCH="${{ github.event.pull_request.head.ref }}"
+          echo "Checking branch: $BRANCH"
+
+          # Define patterns allowed for deletion
+          case "$BRANCH" in
+            feature/*|bugfix/*|hotfix/*)
+              echo "Branch matches deletable pattern. Deleting: $BRANCH"
+              gh api -X DELETE "repos/${{ github.repository }}/git/refs/heads/$BRANCH"
+              ;;
+            *)
+              echo "Branch $BRANCH does not match deletable patterns. Skipping."
+              ;;
+          esac
