@@ -20,12 +20,21 @@ export default class extends YeomanGenerator<BaseOptions> {
         const currentDirectory = this.env.cwd.replace(/^.*[\\\\|\\\/]/, '');
 
         if (args && args.length > 0) {
-            __appName = (args[0] === ".") ? currentDirectory : args[0];
+
+            if (args[0] === "." || args[0] === "./") {
+                __appName = currentDirectory;
+
+            } else {
+                __appName = args[0];
+                this.destinationRoot(this.destinationPath(__appName));
+            }
+
         } else {
             __appName = currentDirectory;
+            // current directory is the destination root
         }
 
-        this.destinationRoot(this.destinationPath(__appName));
+
 
 
         this._templatesVariables ??= {

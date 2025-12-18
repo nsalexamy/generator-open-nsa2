@@ -1,13 +1,102 @@
 = Generator Open NSA2
 
+
+== Introduction
+
 `Generator Open NSA2` is an Yeoman based generator for creating a new project with the following features:
+
+Supported Generators:
+
+* helm-chart-rollouts: Generate scaffold for a Helm chart rollouts
+* yeoman-ts: Generate scaffold for a Typescript based Yeoman generator
+* gradle-version-catalog: Generate scaffold for a Gradle version catalog
+* spring-gvc (gradle version catalog): Generate scaffold for a Spring based Gradle version catalog
+
+== Installation
+
+=== Prerequisites
+
+* Node.js (>= 20.0.0)
+* npm (>= 10.0.0)
+* Yeoman (>= 5.0.0)
+
+
+
+=== Install from source
 
 [source,shellscript]
 ----
-$ cd ~/Dev/tmp
-$ mkdir generator-myprj && cd $_
-
-$ yo open-nsa2:yeoman-ts
+$ git clone git@github.com:nsalexamy/generator-open-nsa2.git
+$ cd generator-open-nsa2
+$ npm install
 $ npm run build
 $ npm link
+----
+
+=== Generate Helm Chart using Argo Rollouts
+
+
+[source,shellscript]
+----
+$ mkdir -p ~/Dev/tmp && cd $_
+----    
+
+.Generate a new Helm chart scaffold to target directory which is your-chart-name
+[source,shellscript]
+----
+$ yo open-nsa2:helm-chart-rollouts your-chart-name 
+----
+The command above will generate a new Helm chart scaffold in the target directory which is your-chart-name
+
+
+[source,shellscript]
+----
+# create a new directory and navigate to it
+$ mkdir my-helm-chart && cd my-helm-chart
+
+# generate a new Helm chart scaffold in the current directory. 
+# The command below will generate a new Helm chart scaffold in the current directory. 
+
+$ yo open-nsa2:helm-chart-rollouts 
+$ yo open-nsa2:helm-chart-rollouts .
+$ yo open-nsa2:helm-chart-rollouts ./
+----
+
+
+
+Options available:
+
+* --image-repository: Image repository for the chart (default: nginx)
+* --image-tag: Image tag for the chart (default: "")
+* --service-port: Service port for the chart (default: 80)
+
+Usage:
+
+[source,shellscript]
+----
+$ yo open-nsa2:helm-chart-rollouts service-foundry-web --image-repository=ghcr.io/nsalexamy/service-foundry-web --image-tag="" --service-port=80
+----
+
+Result:
+
+[source,shellscript]
+----
+$ tree service-foundry-web
+
+service-foundry-web
+├── Chart.yaml
+├── templates
+│   ├── _helpers.tpl
+│   ├── _service.tpl
+│   ├── deployment.yaml
+│   ├── hpa.yaml
+│   ├── ingress.yaml
+│   ├── NOTES.txt
+│   ├── rollout.yaml
+│   ├── service-preview.yaml
+│   ├── service.yaml
+│   ├── serviceaccount.yaml
+│   └── tests
+│       └── test-connection.yaml
+└── values.yaml
 ----
