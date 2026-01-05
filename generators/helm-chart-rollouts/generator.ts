@@ -5,8 +5,9 @@ import fs from 'fs';
 
 interface TemplatesVariables {
     appName: string;
+    chartVersion: string;
     imageRepository: string;
-    imageTag: string;
+    imageTag: string;       // it can be used as appVersion.
     servicePort: number;
 }
 
@@ -25,8 +26,11 @@ export default class extends YeomanGenerator<BaseOptions> {
                 __appName = currentDirectory;
 
             } else {
-                __appName = args[0];
-                this.destinationRoot(this.destinationPath(__appName));
+
+                this.destinationRoot(this.destinationPath(args[0]));
+                // last part of the path
+                // chart-home/your-chart-name -> your-chart-name    
+                __appName = args[0].split('/').pop() || args[0];
             }
 
         } else {
@@ -39,6 +43,7 @@ export default class extends YeomanGenerator<BaseOptions> {
 
         this._templatesVariables ??= {
             appName: __appName,
+            chartVersion: this.options['chart-version'] || "0.1.0",
             imageRepository: this.options['image-repository'] || "nginx",
             imageTag: this.options['image-tag'] || "",
             servicePort: this.options['service-port'] || 80
@@ -73,7 +78,7 @@ export default class extends YeomanGenerator<BaseOptions> {
             "templates/tests/test-connection.yaml",
         ];
 
-        this.log(`files: ${helmChartFiles}`);
+        // this.log(`files: ${helmChartFiles}`);
 
 
         helmChartFiles.forEach(file => {

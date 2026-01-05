@@ -74,7 +74,7 @@ Usage:
 
 [source,shellscript]
 ----
-$ yo open-nsa2:helm-chart-rollouts service-foundry-web --image-repository=ghcr.io/nsalexamy/service-foundry-web --image-tag="" --service-port=80
+$ yo open-nsa2:helm-chart-rollouts service-foundry-web --image-repository=ghcr.io/nsalexamy/service-foundry-web --image-tag="" --service-port=80 --chart-version=0.1.0
 ----
 
 Result:
